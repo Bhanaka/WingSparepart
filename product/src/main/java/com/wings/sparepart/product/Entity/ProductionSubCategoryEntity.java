@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 @Entity
-@Table(name = "ProductionEntry")
+@Table(name = "ProductionSubCategoryEntity")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,4 +24,7 @@ public class ProductionSubCategoryEntity {
     private Boolean status ;
     @Column(columnDefinition = "TIME WITHOUT TIME ZONE")
     private Date date ;
+    @OneToOne
+    @JoinColumn(name ="categoryId")
+    private ProductionCategoryEntity productionCategoryEntity ;
 }

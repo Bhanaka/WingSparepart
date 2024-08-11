@@ -25,10 +25,10 @@ public class ProductionCategoryEntity {
     private Integer subCategoryId ;
     @Column
     private Boolean status;
-    @Column(columnDefinition = "TIME WITHOUT TIME ZONE")
-    private Date date ;
+    @Column()
+    private String date ;
     //    @Column
-    @OneToOne
-    @JoinColumn(name = "production_sub_category_sub_category_id")
-    private ProductionSubCategoryEntity productionSubCategoryEntity ;
+//    @OneToOne
+//    @JoinColumn(name = "production_sub_category_sub_category_id")
+//    private ProductionSubCategoryEntity productionSubCategoryEntity ;
 }
