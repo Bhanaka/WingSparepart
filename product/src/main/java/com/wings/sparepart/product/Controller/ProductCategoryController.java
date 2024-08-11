@@ -51,6 +51,19 @@ public class ProductCategoryController {
     // create sub category
     @PostMapping("/subcategory/create")
     public ProductionSubCategoryEntity createSubCatgory(@RequestBody ProductSubCatoReq productSubCatoReq){
-        return  productCategoryService.save(productSubCatoReq);
+        return  productCategoryService.saveSubCategory(productSubCatoReq);
+    }
+    @GetMapping("/subcategory/getallsubcato")
+    public List<ProductionSubCategoryEntity> getAllSubCato(){
+        return productCategoryService.getAllSubCategory();
+    }
+    @GetMapping("/getsubcategory/{id}")
+    public ResponseEntity <ProductionSubCategoryEntity>getSubCatoById(@PathVariable Long id){
+        try {
+            ProductionSubCategoryEntity productSubCategory = productCategoryService.getProductSubCategoryById(id);
+            return new ResponseEntity<>(productSubCategory ,HttpStatus.OK) ;
+        }catch (RuntimeException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }

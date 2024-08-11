@@ -6,6 +6,7 @@ import com.wings.sparepart.product.DTO.ProductSubCatoReq;
 import com.wings.sparepart.product.Entity.ProductionCategoryEntity;
 import com.wings.sparepart.product.Entity.ProductionSubCategoryEntity;
 import com.wings.sparepart.product.Repository.ProductCategoryRepository;
+import com.wings.sparepart.product.Repository.ProductSubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +17,30 @@ import java.util.Optional;
 public class ProductCategoryService {
     @Autowired
     ProductCategoryRepository productCategoryRepository ;
-    public ProductionSubCategoryEntity save(ProductSubCatoReq productSubCatoReq){
-        return new ProductionSubCategoryEntity() ;
+    @Autowired
+    ProductSubCategoryRepository productSubCategoryRepository ;
+
+    public ProductionSubCategoryEntity saveSubCategory(ProductSubCatoReq productSubCatoReq){
+        ProductionSubCategoryEntity subCategory = new ProductionSubCategoryEntity();
+
+        subCategory.setSubCategoryId(productSubCatoReq.getSubCategoryCode());
+        subCategory.setSubSubCategoryDes(productSubCatoReq.getSubCategoryDes());
+
+        subCategory.setDate(CurrentDateTime.getCurrentDateTime());
+
+        subCategory.setStatus(true);
+
+        return productSubCategoryRepository.save(subCategory) ;
     }
     public ProductionCategoryEntity saveCategory(ProductCatoReq productCatoReq){
         ProductionCategoryEntity productionCategoryEntity = new ProductionCategoryEntity() ;
         productionCategoryEntity.setCategoryId(productCatoReq.getCategoryCode());
         productionCategoryEntity.setCategoryDescription(productCatoReq.getCategoryDes());
         // get the current date and time
-        CurrentDateTime currentDateTime = new CurrentDateTime();
         String dateTime = CurrentDateTime.getCurrentDateTime() ;
         productionCategoryEntity.setStatus(true);
         productionCategoryEntity.setDate(dateTime);
+
 
         return productCategoryRepository.save(productionCategoryEntity);
     }
@@ -52,5 +65,14 @@ public class ProductCategoryService {
         } else {
             throw new RuntimeException("Production entity not found with id: " + id);
         }
+    }
+
+    public List<ProductionSubCategoryEntity> getAllSubCategory() {
+        return productSubCategoryRepository.findAll();
+    }
+
+    public ProductionSubCategoryEntity getProductSubCategoryById(Long id) {
+        return productSubCategoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Production entity not found with id: " + id));
     }
 }

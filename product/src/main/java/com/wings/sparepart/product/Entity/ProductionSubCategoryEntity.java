@@ -22,9 +22,13 @@ public class ProductionSubCategoryEntity {
     private String subSubCategoryDes ;
     @Column
     private Boolean status ;
-    @Column(columnDefinition = "TIME WITHOUT TIME ZONE")
-    private Date date ;
-    @OneToOne
-    @JoinColumn(name ="categoryId")
-    private ProductionCategoryEntity productionCategoryEntity ;
+    @Column()
+    private String date ;
+//    @OneToOne
+//    @JoinColumn(name ="categoryId")
+//    private ProductionCategoryEntity productionCategoryEntity ;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private ProductionCategoryEntity ProductionCategoryEntity;
+
 }

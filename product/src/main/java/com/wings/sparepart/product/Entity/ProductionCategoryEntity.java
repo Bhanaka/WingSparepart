@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -31,4 +33,7 @@ public class ProductionCategoryEntity {
 //    @OneToOne
 //    @JoinColumn(name = "production_sub_category_sub_category_id")
 //    private ProductionSubCategoryEntity productionSubCategoryEntity ;
+//    @OneToMany(mappedBy = "ProductionCategoryEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<ProductionSubCategoryEntity> subcategories;
+
 }
